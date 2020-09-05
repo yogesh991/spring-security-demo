@@ -1,4 +1,4 @@
-package com.spring.demo.web;/*
+package com.spring.demo.web;/* 
 @Author : Yogesh Deshmukh
 */
 
@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class DashboardController {
+public class AdminController {
+    @Autowired
+    private AdminService adminService;
 
-
-    @GetMapping("/dashboard")
+    @GetMapping("/admin")
     public String getDashBoard(@AuthenticationPrincipal User user, ModelMap map){
         System.out.println(user);
         map.put("user",user);
-            return "dashboard";
+        List<User> allUsers = adminService.getAllUsers();
+        map.put("users",allUsers);
+
+        return "admin";
     }
 }
